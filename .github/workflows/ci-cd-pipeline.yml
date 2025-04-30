@@ -5,7 +5,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  postman-tests:
+    name: Run Postman Tests and Deploy Report
     runs-on: ubuntu-latest
 
     steps:
@@ -20,8 +21,17 @@ jobs:
       - name: Install Newman and htmlextra reporter
         run: npm install -g newman newman-reporter-htmlextra
 
-      - name: Run API Tests
+      - name: Run API Tests with Newman
         run: |
           newman run Restfull_Booker.postman_collection.json \
             -e Book_Environment.postman_environment.json \
             -r htmlextra --reporter-htmlextra-export report.html
+
+      - name: Deploy report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          publish_branch: gh-pages
+          destination_dir: report
+
