@@ -2,6 +2,8 @@
 
 This repository contains Postman collections and environment files for automated API testing of the **Restful Booker** API using **Newman** and the **HTMLExtra Reporter**.
 
+🔗 **Full Report**: [1 time Iterations  View HTML Report](https://sabbir72.github.io/ApiLearnwith_csv_env_collection/report.html)  1 time Iterations 
+
 ## 📊 Test Report Summary
 
 📅 **Test Date**: January 26, 2025  
