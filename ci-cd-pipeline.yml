@@ -24,10 +24,9 @@ jobs:
 
       - name: Run Newman collection
         run: |
-          newman run Restfull_Booker.postman_collection.json \
-            -e Book_Environment.postman_environment.json \
-            -r htmlextra \
-            --reporter-htmlextra-export report.html
+         newman run Restfull_Booker.postman_collection.json \
+         -e Book_Environment.postman_environment.json \
+         -r htmlextra --reporter-htmlextra-export report.html
 
       - name: Upload report artifact
         uses: actions/upload-artifact@v3
