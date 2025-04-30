@@ -5,12 +5,11 @@ on:
     branches: [ main ]
 
 jobs:
-  postman-tests:
-    name: Run Postman Tests and Deploy Report
+  run-postman-tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Set up Node.js
@@ -18,20 +17,18 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install Newman and htmlextra reporter
+      - name: Install Newman
         run: npm install -g newman newman-reporter-htmlextra
 
-      - name: Run API Tests with Newman
+      - name: Run Postman Tests
         run: |
           newman run Restfull_Booker.postman_collection.json \
             -e Book_Environment.postman_environment.json \
-            -r htmlextra --reporter-htmlextra-export report.html
+            -r htmlextra --reporter-htmlextra-export report.html \
+            --verbose
 
-      - name: Deploy report to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Report Artifact
+        uses: actions/upload-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
-          publish_branch: gh-pages
-          destination_dir: report
-
+          name: newman-report
+          path: report.html
