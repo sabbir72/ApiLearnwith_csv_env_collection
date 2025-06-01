@@ -11,11 +11,11 @@ jobs:
     steps:
       # Checkout repository
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # Set up Node.js
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
 
@@ -26,8 +26,8 @@ jobs:
       # Run Postman Tests
       - name: Run Postman Tests
         run: |
-          newman run Restfull_Booker.postman_collection.json \
-            -e Book_Environment.postman_environment.json \
+          newman run Restfull_Booker_postman_collection.json \
+            -e Book_Environment_postman_environment.json \
             -r htmlextra --reporter-htmlextra-export report.html \
             --verbose
 
