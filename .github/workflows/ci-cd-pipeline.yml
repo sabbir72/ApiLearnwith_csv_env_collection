@@ -33,7 +33,7 @@ jobs:
 
       # Upload Report Artifact
       - name: Upload Report Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: newman-report
           path: report.html
