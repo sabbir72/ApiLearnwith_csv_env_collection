@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: pipeline
 
 on:
   push:
@@ -19,20 +19,21 @@ jobs:
         with:
           node-version: '22'
 
-      # Install Newman
-      - name: Install Newman
+      # Install Newman and HTML Reporter
+      - name: Install Newman and Reporter
         run: npm install -g newman newman-reporter-htmlextra
 
-      # Run Postman Tests
-      - name: Run Postman Tests
+      # Run Postman Collection
+      - name: Run Postman Collection
         run: |
           newman run Restfull_Booker_postman_collection.json \
             -e Book_Environment_postman_environment.json \
-            -r htmlextra --reporter-htmlextra-export report.html \
+            -r htmlextra \
+            --reporter-htmlextra-export report.html \
             --verbose
 
-      # Upload Report Artifact
-      - name: Upload Report Artifact
+      # Upload HTML Report
+      - name: Upload Newman HTML Report
         uses: actions/upload-artifact@v4
         with:
           name: newman-report
